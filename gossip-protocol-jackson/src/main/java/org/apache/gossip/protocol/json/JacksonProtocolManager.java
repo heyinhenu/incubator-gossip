@@ -43,90 +43,92 @@ import java.security.spec.PKCS8EncodedKeySpec;
 
 // this class is constructed by reflection in GossipManager.
 public class JacksonProtocolManager implements ProtocolManager {
-  
-  private final ObjectMapper objectMapper;
-  private final PrivateKey privKey;
-  private final Meter signed;
-  private final Meter unsigned;
-  
-  /** required for reflection to work! */
-  public JacksonProtocolManager(GossipSettings settings, String id, MetricRegistry registry) {
-    // set up object mapper.
-    objectMapper = buildObjectMapper(settings);
-    
-    // set up message signing.
-    if (settings.isSignMessages()){
-      File privateKey = new File(settings.getPathToKeyStore(), id);
-      File publicKey = new File(settings.getPathToKeyStore(), id + ".pub");
-      if (!privateKey.exists()){
-        throw new IllegalArgumentException("private key not found " + privateKey);
-      }
-      if (!publicKey.exists()){
-        throw new IllegalArgumentException("public key not found " + publicKey);
-      }
-      try (FileInputStream keyfis = new FileInputStream(privateKey)) {
-        byte[] encKey = new byte[keyfis.available()];
-        keyfis.read(encKey);
-        keyfis.close();
-        PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(encKey);
-        KeyFactory keyFactory = KeyFactory.getInstance("DSA");
-        privKey = keyFactory.generatePrivate(privKeySpec);
-      } catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e) {
-        throw new RuntimeException("failed hard", e);
-      }
-    } else {
-      privKey = null;
-    }
-    
-    signed = registry.meter(PassiveGossipConstants.SIGNED_MESSAGE);
-    unsigned = registry.meter(PassiveGossipConstants.UNSIGNED_MESSAGE);
-  }
 
-  @Override
-  public byte[] write(Base message) throws IOException {
-    byte[] json_bytes;
-    if (privKey == null){
-      json_bytes = objectMapper.writeValueAsBytes(message);
-    } else {
-      SignedPayload p = new SignedPayload();
-      p.setData(objectMapper.writeValueAsString(message).getBytes());
-      p.setSignature(sign(p.getData(), privKey));
-      json_bytes = objectMapper.writeValueAsBytes(p);
-    }
-    return json_bytes;
-  }
+    private final ObjectMapper objectMapper;
+    private final PrivateKey privKey;
+    private final Meter signed;
+    private final Meter unsigned;
 
-  @Override
-  public Base read(byte[] buf) throws IOException {
-    Base activeGossipMessage = objectMapper.readValue(buf, Base.class);
-    if (activeGossipMessage instanceof SignedPayload){
-      SignedPayload s = (SignedPayload) activeGossipMessage;
-      signed.mark();
-      return objectMapper.readValue(s.getData(), Base.class);
-    } else {
-      unsigned.mark();
-      return activeGossipMessage;
-    }
-  }
+    /**
+     * required for reflection to work!
+     */
+    public JacksonProtocolManager(GossipSettings settings, String id, MetricRegistry registry) {
+        // set up object mapper.
+        objectMapper = buildObjectMapper(settings);
 
-  public static ObjectMapper buildObjectMapper(GossipSettings settings) {
-    ObjectMapper om = new ObjectMapper();
-    om.enableDefaultTyping();
-    // todo: should be specified in the configuration.
-    om.registerModule(new CrdtModule());
-    om.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, false);
-    return om;
-  }
-  
-  private static byte[] sign(byte [] bytes, PrivateKey pk){
-    Signature dsa;
-    try {
-      dsa = Signature.getInstance("SHA1withDSA", "SUN");
-      dsa.initSign(pk);
-      dsa.update(bytes);
-      return dsa.sign();
-    } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | SignatureException e) {
-      throw new RuntimeException(e);
-    } 
-  }
+        // set up message signing.
+        if (settings.isSignMessages()) {
+            File privateKey = new File(settings.getPathToKeyStore(), id);
+            File publicKey = new File(settings.getPathToKeyStore(), id + ".pub");
+            if (!privateKey.exists()) {
+                throw new IllegalArgumentException("private key not found " + privateKey);
+            }
+            if (!publicKey.exists()) {
+                throw new IllegalArgumentException("public key not found " + publicKey);
+            }
+            try (FileInputStream keyfis = new FileInputStream(privateKey)) {
+                byte[] encKey = new byte[keyfis.available()];
+                keyfis.read(encKey);
+                keyfis.close();
+                PKCS8EncodedKeySpec privKeySpec = new PKCS8EncodedKeySpec(encKey);
+                KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+                privKey = keyFactory.generatePrivate(privKeySpec);
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException | IOException e) {
+                throw new RuntimeException("failed hard", e);
+            }
+        } else {
+            privKey = null;
+        }
+
+        signed = registry.meter(PassiveGossipConstants.SIGNED_MESSAGE);
+        unsigned = registry.meter(PassiveGossipConstants.UNSIGNED_MESSAGE);
+    }
+
+    @Override
+    public byte[] write(Base message) throws IOException {
+        byte[] json_bytes;
+        if (privKey == null) {
+            json_bytes = objectMapper.writeValueAsBytes(message);
+        } else {
+            SignedPayload p = new SignedPayload();
+            p.setData(objectMapper.writeValueAsString(message).getBytes());
+            p.setSignature(sign(p.getData(), privKey));
+            json_bytes = objectMapper.writeValueAsBytes(p);
+        }
+        return json_bytes;
+    }
+
+    @Override
+    public Base read(byte[] buf) throws IOException {
+        Base activeGossipMessage = objectMapper.readValue(buf, Base.class);
+        if (activeGossipMessage instanceof SignedPayload) {
+            SignedPayload s = (SignedPayload) activeGossipMessage;
+            signed.mark();
+            return objectMapper.readValue(s.getData(), Base.class);
+        } else {
+            unsigned.mark();
+            return activeGossipMessage;
+        }
+    }
+
+    public static ObjectMapper buildObjectMapper(GossipSettings settings) {
+        ObjectMapper om = new ObjectMapper();
+        om.enableDefaultTyping();
+        // todo: should be specified in the configuration.
+        om.registerModule(new CrdtModule());
+        om.configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, false);
+        return om;
+    }
+
+    private static byte[] sign(byte[] bytes, PrivateKey pk) {
+        Signature dsa;
+        try {
+            dsa = Signature.getInstance("SHA1withDSA", "SUN");
+            dsa.initSign(pk);
+            dsa.update(bytes);
+            return dsa.sign();
+        } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | SignatureException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

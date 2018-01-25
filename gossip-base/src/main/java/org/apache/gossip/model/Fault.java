@@ -19,22 +19,23 @@ package org.apache.gossip.model;
 
 public abstract class Fault extends Response {
 
-  private String exception;
+    private String exception;
 
-  public Fault(){}
+    public Fault() {
+    }
 
-  public String getException() {
-    return exception;
-  }
+    public String getException() {
+        return exception;
+    }
 
-  public void setException(String exception) {
-    this.exception = exception;
-  }
+    public void setException(String exception) {
+        this.exception = exception;
+    }
 
-  @Override
-  public String toString() {
-    return "Fault [exception=" + exception + "]";
-  }
+    @Override
+    public String toString() {
+        return "Fault [exception=" + exception + "]";
+    }
 
 }
 

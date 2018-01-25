@@ -28,9 +28,9 @@ import org.apache.gossip.model.Base;
  * @see Replicable
  */
 public class AllReplicable<T extends Base> implements Replicable<T> {
-  
-  @Override
-  public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
-    return true;
-  }
+
+    @Override
+    public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
+        return true;
+    }
 }

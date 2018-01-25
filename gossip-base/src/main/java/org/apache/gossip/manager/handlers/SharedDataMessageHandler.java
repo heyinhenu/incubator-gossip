@@ -22,18 +22,18 @@ import org.apache.gossip.manager.GossipManager;
 import org.apache.gossip.model.Base;
 import org.apache.gossip.udp.UdpSharedDataMessage;
 
-public class SharedDataMessageHandler implements MessageHandler{
-  
-  /**
-   * @param gossipCore context.
-   * @param gossipManager context.
-   * @param base message reference.
-   * @return boolean indicating success.
-   */
-  @Override
-  public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
-    UdpSharedDataMessage message = (UdpSharedDataMessage) base;
-    gossipCore.addSharedData(message);
-    return true;
-  }
+public class SharedDataMessageHandler implements MessageHandler {
+
+    /**
+     * @param gossipCore    context.
+     * @param gossipManager context.
+     * @param base          message reference.
+     * @return boolean indicating success.
+     */
+    @Override
+    public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
+        UdpSharedDataMessage message = (UdpSharedDataMessage) base;
+        gossipCore.addSharedData(message);
+        return true;
+    }
 }

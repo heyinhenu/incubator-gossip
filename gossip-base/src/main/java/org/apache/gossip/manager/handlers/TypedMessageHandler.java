@@ -22,30 +22,30 @@ import org.apache.gossip.manager.GossipManager;
 import org.apache.gossip.model.Base;
 
 public class TypedMessageHandler implements MessageHandler {
-  final private Class<?> messageClass;
-  final private MessageHandler messageHandler;
+    final private Class<?> messageClass;
+    final private MessageHandler messageHandler;
 
-  public TypedMessageHandler(Class<?> messageClass, MessageHandler messageHandler) {
-    if (messageClass == null || messageHandler == null) {
-      throw new NullPointerException();
+    public TypedMessageHandler(Class<?> messageClass, MessageHandler messageHandler) {
+        if (messageClass == null || messageHandler == null) {
+            throw new NullPointerException();
+        }
+        this.messageClass = messageClass;
+        this.messageHandler = messageHandler;
     }
-    this.messageClass = messageClass;
-    this.messageHandler = messageHandler;
-  }
 
-  /**
-   * @param gossipCore context.
-   * @param gossipManager context.
-   * @param base message reference.
-   * @return true if types match, false otherwise.
-   */
-  @Override
-  public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
-    if (messageClass.isAssignableFrom(base.getClass())) {
-      messageHandler.invoke(gossipCore, gossipManager, base);
-      return true;
-    } else {
-      return false;
+    /**
+     * @param gossipCore    context.
+     * @param gossipManager context.
+     * @param base          message reference.
+     * @return true if types match, false otherwise.
+     */
+    @Override
+    public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
+        if (messageClass.isAssignableFrom(base.getClass())) {
+            messageHandler.invoke(gossipCore, gossipManager, base);
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 }

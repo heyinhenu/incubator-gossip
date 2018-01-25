@@ -31,170 +31,169 @@ import java.util.Objects;
  * getters and setters are the keys to making this work without the Jackson annotations.
  */
 class TestMessage extends Base implements Trackable {
-  private String unique;
-  private String from;
-  private String uuid;
-  private String derivedField;
-  private Subclass otherThing;
-  private float floatValue;
-  private double doubleValue;
-  private Object[] arrayOfThings;
-  private Map<String, String> mapOfThings = new HashMap<>();
+    private String unique;
+    private String from;
+    private String uuid;
+    private String derivedField;
+    private Subclass otherThing;
+    private float floatValue;
+    private double doubleValue;
+    private Object[] arrayOfThings;
+    private Map<String, String> mapOfThings = new HashMap<>();
 
-  @SuppressWarnings("unused")//Used by ObjectMapper
-  private TestMessage() {
-  }
-
-  TestMessage(String unique) {
-    this.unique = unique;
-    from = Integer.toHexString(unique.hashCode());
-    uuid = Integer.toHexString(from.hashCode());
-    derivedField = Integer.toHexString(uuid.hashCode());
-    otherThing = new Subclass(Integer.toHexString(derivedField.hashCode()));
-    floatValue = (float) unique.hashCode() / (float) from.hashCode();
-    doubleValue = (double) uuid.hashCode() / (double) derivedField.hashCode();
-    arrayOfThings = new Object[]{
-        this.unique, from, uuid, derivedField, otherThing, floatValue, doubleValue
-    };
-
-    String curThing = unique;
-    for (int i = 0; i < 100; i++) {
-      String key = Integer.toHexString(curThing.hashCode());
-      String value = Integer.toHexString(key.hashCode());
-      curThing = value;
-      mapOfThings.put(key, value);
-    }
-  }
-
-  @Override
-  public String getUriFrom() {
-    return from;
-  }
-
-  @Override
-  public void setUriFrom(String uriFrom) {
-    this.from = uriFrom;
-  }
-
-  @Override
-  public String getUuid() {
-    return uuid;
-  }
-
-  @Override
-  public void setUuid(String uuid) {
-    this.uuid = uuid;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof TestMessage)) return false;
-    TestMessage that = (TestMessage) o;
-    return Objects.equals(unique, that.unique) &&
-        Objects.equals(from, that.from) &&
-        Objects.equals(getUuid(), that.getUuid()) &&
-        Objects.equals(derivedField, that.derivedField) &&
-        Objects.equals(floatValue, that.floatValue) &&
-        Objects.equals(doubleValue, that.doubleValue) &&
-        Arrays.equals(arrayOfThings, that.arrayOfThings) &&
-        Objects.equals(mapOfThings, that.mapOfThings);
-  }
-
-  public String getUnique() {
-    return unique;
-  }
-
-  public void setUnique(String unique) {
-    this.unique = unique;
-  }
-
-  public String getFrom() {
-    return from;
-  }
-
-  public void setFrom(String from) {
-    this.from = from;
-  }
-
-  public String getDerivedField() {
-    return derivedField;
-  }
-
-  public void setDerivedField(String derivedField) {
-    this.derivedField = derivedField;
-  }
-
-  public Subclass getOtherThing() {
-    return otherThing;
-  }
-
-  public void setOtherThing(Subclass otherThing) {
-    this.otherThing = otherThing;
-  }
-
-  public float getFloatValue() {
-    return floatValue;
-  }
-
-  public void setFloatValue(float floatValue) {
-    this.floatValue = floatValue;
-  }
-
-  public double getDoubleValue() {
-    return doubleValue;
-  }
-
-  public void setDoubleValue(double doubleValue) {
-    this.doubleValue = doubleValue;
-  }
-
-  public Object[] getArrayOfThings() {
-    return arrayOfThings;
-  }
-
-  public void setArrayOfThings(Object[] arrayOfThings) {
-    this.arrayOfThings = arrayOfThings;
-  }
-
-  public Map<String, String> getMapOfThings() {
-    return mapOfThings;
-  }
-
-  public void setMapOfThings(Map<String, String> mapOfThings) {
-    this.mapOfThings = mapOfThings;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(unique, getUriFrom(), getUuid(), derivedField, floatValue, doubleValue, arrayOfThings, mapOfThings);
-  }
-
-  static class Subclass {
-    private String thing;
-
-    public Subclass() {
+    @SuppressWarnings("unused")//Used by ObjectMapper
+    private TestMessage() {
     }
 
-    public Subclass(String thing) {
-      this.thing = thing;
+    TestMessage(String unique) {
+        this.unique = unique;
+        from = Integer.toHexString(unique.hashCode());
+        uuid = Integer.toHexString(from.hashCode());
+        derivedField = Integer.toHexString(uuid.hashCode());
+        otherThing = new Subclass(Integer.toHexString(derivedField.hashCode()));
+        floatValue = (float) unique.hashCode() / (float) from.hashCode();
+        doubleValue = (double) uuid.hashCode() / (double) derivedField.hashCode();
+        arrayOfThings = new Object[]{this.unique, from, uuid, derivedField, otherThing, floatValue, doubleValue};
+
+        String curThing = unique;
+        for (int i = 0; i < 100; i++) {
+            String key = Integer.toHexString(curThing.hashCode());
+            String value = Integer.toHexString(key.hashCode());
+            curThing = value;
+            mapOfThings.put(key, value);
+        }
+    }
+
+    @Override
+    public String getUriFrom() {
+        return from;
+    }
+
+    @Override
+    public void setUriFrom(String uriFrom) {
+        this.from = uriFrom;
+    }
+
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (!(o instanceof Subclass)) return false;
-      Subclass subclass = (Subclass) o;
-      return Objects.equals(thing, subclass.thing);
+        if (this == o)
+            return true;
+        if (!(o instanceof TestMessage))
+            return false;
+        TestMessage that = (TestMessage) o;
+        return Objects.equals(unique, that.unique) && Objects.equals(from, that.from) && Objects.equals(
+                getUuid(), that.getUuid()) && Objects.equals(derivedField, that.derivedField) && Objects.equals(
+                floatValue, that.floatValue) && Objects.equals(doubleValue, that.doubleValue) && Arrays.equals(
+                arrayOfThings, that.arrayOfThings) && Objects.equals(mapOfThings, that.mapOfThings);
+    }
+
+    public String getUnique() {
+        return unique;
+    }
+
+    public void setUnique(String unique) {
+        this.unique = unique;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getDerivedField() {
+        return derivedField;
+    }
+
+    public void setDerivedField(String derivedField) {
+        this.derivedField = derivedField;
+    }
+
+    public Subclass getOtherThing() {
+        return otherThing;
+    }
+
+    public void setOtherThing(Subclass otherThing) {
+        this.otherThing = otherThing;
+    }
+
+    public float getFloatValue() {
+        return floatValue;
+    }
+
+    public void setFloatValue(float floatValue) {
+        this.floatValue = floatValue;
+    }
+
+    public double getDoubleValue() {
+        return doubleValue;
+    }
+
+    public void setDoubleValue(double doubleValue) {
+        this.doubleValue = doubleValue;
+    }
+
+    public Object[] getArrayOfThings() {
+        return arrayOfThings;
+    }
+
+    public void setArrayOfThings(Object[] arrayOfThings) {
+        this.arrayOfThings = arrayOfThings;
+    }
+
+    public Map<String, String> getMapOfThings() {
+        return mapOfThings;
+    }
+
+    public void setMapOfThings(Map<String, String> mapOfThings) {
+        this.mapOfThings = mapOfThings;
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(thing);
+        return Objects.hash(
+                unique, getUriFrom(), getUuid(), derivedField, floatValue, doubleValue, arrayOfThings, mapOfThings);
     }
 
-    public String getThing() {
-      return thing;
+    static class Subclass {
+        private String thing;
+
+        public Subclass() {
+        }
+
+        public Subclass(String thing) {
+            this.thing = thing;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (!(o instanceof Subclass))
+                return false;
+            Subclass subclass = (Subclass) o;
+            return Objects.equals(thing, subclass.thing);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(thing);
+        }
+
+        public String getThing() {
+            return thing;
+        }
     }
-  }
 }

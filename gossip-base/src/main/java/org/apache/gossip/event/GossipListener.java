@@ -20,5 +20,5 @@ package org.apache.gossip.event;
 import org.apache.gossip.Member;
 
 public interface GossipListener {
-  void gossipEvent(Member member, GossipState state);
+    void gossipEvent(Member member, GossipState state);
 }

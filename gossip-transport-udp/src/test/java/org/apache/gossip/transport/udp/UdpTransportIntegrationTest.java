@@ -21,16 +21,17 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class UdpTransportIntegrationTest {
-  
-  // It's currently impossible to create a UdpTransportManager without bringing up an entire stack.
-  // This is because AbstractTransportManager creates a PassiveGossipThread (requires GossipManager, 
-  // GossipCore) and also requires those same things plus a MetricsRegistry to create the 
-  // ActiveGossiper.
-  // TODO: test UDPTransportManger semantics (read and write) in isolation.
-  // I've written this test to indicate the direction I want things to go.
-  // Uncomment/Fix it once the coupling issues are worked out.
-  @Test @Ignore
-  public void testRoundTrip() {
+
+    // It's currently impossible to create a UdpTransportManager without bringing up an entire stack.
+    // This is because AbstractTransportManager creates a PassiveGossipThread (requires GossipManager,
+    // GossipCore) and also requires those same things plus a MetricsRegistry to create the
+    // ActiveGossiper.
+    // TODO: test UDPTransportManger semantics (read and write) in isolation.
+    // I've written this test to indicate the direction I want things to go.
+    // Uncomment/Fix it once the coupling issues are worked out.
+    @Test
+    @Ignore
+    public void testRoundTrip() {
     /*
     GossipSettings settings0 = new GossipSettings();
     GossipSettings settings1 = new GossipSettings();
@@ -54,7 +55,7 @@ public class UdpTransportIntegrationTest {
     mgr0.shutdown();
     mgr1.shutdown();
     */
-  }
-  
-  
+    }
+
+
 }

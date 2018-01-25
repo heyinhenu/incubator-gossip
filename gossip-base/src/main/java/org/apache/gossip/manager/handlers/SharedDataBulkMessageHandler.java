@@ -23,19 +23,19 @@ import org.apache.gossip.model.Base;
 import org.apache.gossip.model.SharedDataMessage;
 import org.apache.gossip.udp.UdpSharedDataBulkMessage;
 
-public class SharedDataBulkMessageHandler implements MessageHandler{
-  
-  /**
-   * @param gossipCore context.
-   * @param gossipManager context.
-   * @param base message reference.
-   * @return boolean indicating success.
-   */
-  @Override
-  public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
-    UdpSharedDataBulkMessage udpMessage = (UdpSharedDataBulkMessage) base;
-    for (SharedDataMessage dataMsg: udpMessage.getMessages())
-      gossipCore.addSharedData(dataMsg);
-    return true;
-  }
+public class SharedDataBulkMessageHandler implements MessageHandler {
+
+    /**
+     * @param gossipCore    context.
+     * @param gossipManager context.
+     * @param base          message reference.
+     * @return boolean indicating success.
+     */
+    @Override
+    public boolean invoke(GossipCore gossipCore, GossipManager gossipManager, Base base) {
+        UdpSharedDataBulkMessage udpMessage = (UdpSharedDataBulkMessage) base;
+        for (SharedDataMessage dataMsg : udpMessage.getMessages())
+            gossipCore.addSharedData(dataMsg);
+        return true;
+    }
 }

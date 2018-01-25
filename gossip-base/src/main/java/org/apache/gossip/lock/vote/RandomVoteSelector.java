@@ -27,9 +27,9 @@ import java.util.Set;
  */
 public class RandomVoteSelector implements VoteSelector {
 
-  @Override
-  public String getVoteCandidateId(Set<String> voteCandidateIds) {
-    List<String> voteCandidatesIds = new ArrayList<>(voteCandidateIds);
-    return voteCandidatesIds.get(new Random().nextInt(voteCandidatesIds.size()));
-  }
+    @Override
+    public String getVoteCandidateId(Set<String> voteCandidateIds) {
+        List<String> voteCandidatesIds = new ArrayList<>(voteCandidateIds);
+        return voteCandidatesIds.get(new Random().nextInt(voteCandidatesIds.size()));
+    }
 }

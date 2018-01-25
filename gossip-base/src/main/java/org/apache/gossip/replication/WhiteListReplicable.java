@@ -30,23 +30,23 @@ import java.util.List;
  * @see Replicable
  */
 public class WhiteListReplicable<T extends Base> implements Replicable<T> {
-  
-  private final List<LocalMember> whiteListMembers;
-  
-  public WhiteListReplicable(List<LocalMember> whiteListMembers) {
-    if (whiteListMembers == null) {
-      this.whiteListMembers = new ArrayList<>();
-    } else {
-      this.whiteListMembers = whiteListMembers;
+
+    private final List<LocalMember> whiteListMembers;
+
+    public WhiteListReplicable(List<LocalMember> whiteListMembers) {
+        if (whiteListMembers == null) {
+            this.whiteListMembers = new ArrayList<>();
+        } else {
+            this.whiteListMembers = whiteListMembers;
+        }
     }
-  }
 
-  public List<LocalMember> getWhiteListMembers() {
-    return whiteListMembers;
-  }
+    public List<LocalMember> getWhiteListMembers() {
+        return whiteListMembers;
+    }
 
-  @Override
-  public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
-    return whiteListMembers.contains(destination);
-  }
+    @Override
+    public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
+        return whiteListMembers.contains(destination);
+    }
 }

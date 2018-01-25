@@ -24,259 +24,266 @@ import java.util.Map;
 
 /**
  * In this object the settings used by the GossipService are held.
- * 
  */
 public class GossipSettings {
 
-  /** Time between gossip'ing in ms. Default is 1 second. */
-  private int gossipInterval = 10;
+    /**
+     * Time between gossip'ing in ms. Default is 1 second.
+     */
+    private int gossipInterval = 10;
 
-  /** Time between cleanups in ms. Default is 10 seconds. */
-  private int cleanupInterval = 5000;
+    /**
+     * Time between cleanups in ms. Default is 10 seconds.
+     */
+    private int cleanupInterval = 5000;
 
-  /** the minimum samples needed before reporting a result */
-  private int minimumSamples = 5;
-  
-  /** the number of samples to keep per host */
-  private int windowSize = 5000;
-  
-  /** the threshold for the detector */
-  private double convictThreshold = 10;
-  
-  private String distribution = "normal";
-  
-  private String activeGossipClass = "org.apache.gossip.manager.SimpleActiveGossiper";
+    /**
+     * the minimum samples needed before reporting a result
+     */
+    private int minimumSamples = 5;
 
-  private String transportManagerClass = "org.apache.gossip.transport.udp.UdpTransportManager";
-  private String protocolManagerClass = "org.apache.gossip.protocol.json.JacksonProtocolManager";
-  
-  private Map<String,String> activeGossipProperties = new HashMap<>();
-  
-  private String pathToRingState = "./";
-  
-  private boolean persistRingState = true;
-  
-  private String pathToDataState = "./";
-  
-  private boolean persistDataState = true;
-  
-  private String pathToKeyStore = "./keys";
-  
-  private boolean signMessages = false;
+    /**
+     * the number of samples to keep per host
+     */
+    private int windowSize = 5000;
 
-  // Settings related to lock manager
-  private LockManagerSettings lockManagerSettings = LockManagerSettings
-          .getLockManagerDefaultSettings();
-  
-  private boolean bulkTransfer = false;
+    /**
+     * the threshold for the detector
+     */
+    private double convictThreshold = 10;
 
-  private int bulkTransferSize = StartupSettings.DEFAULT_BULK_TRANSFER_SIZE;
-  
-  /**
-   * Construct GossipSettings with default settings.
-   */
-  public GossipSettings() {
-  }
+    private String distribution = "normal";
 
-  /**
-   * Construct GossipSettings with given settings.
-   * 
-   * @param gossipInterval
-   *          The gossip interval in ms.
-   * @param cleanupInterval
-   *          The cleanup interval in ms.
-   */
-  public GossipSettings(int gossipInterval, int cleanupInterval, int windowSize, int minimumSamples,
-          double convictThreshold, String distribution, boolean bulkTransfer) {
-    this.gossipInterval = gossipInterval;
-    this.cleanupInterval = cleanupInterval;
-    this.windowSize = windowSize;
-    this.minimumSamples = minimumSamples;
-    this.convictThreshold = convictThreshold;
-    this.distribution = distribution;
-    this.bulkTransfer = bulkTransfer;
-  }
+    private String activeGossipClass = "org.apache.gossip.manager.SimpleActiveGossiper";
 
-  /**
-   * Set the gossip interval. This is the time between a gossip message is send.
-   * 
-   * @param gossipInterval
-   *          The gossip interval in ms.
-   */
-  public void setGossipTimeout(int gossipInterval) {
-    this.gossipInterval = gossipInterval;
-  }
+    private String transportManagerClass = "org.apache.gossip.transport.udp.UdpTransportManager";
+    private String protocolManagerClass = "org.apache.gossip.protocol.json.JacksonProtocolManager";
 
-  /**
-   * Set the cleanup interval. This is the time between the last heartbeat received from a member
-   * and when it will be marked as dead.
-   * 
-   * @param cleanupInterval
-   *          The cleanup interval in ms.
-   */
-  public void setCleanupInterval(int cleanupInterval) {
-    this.cleanupInterval = cleanupInterval;
-  }
+    private Map<String, String> activeGossipProperties = new HashMap<>();
 
-  /**
-   * Get the gossip interval.
-   * 
-   * @return The gossip interval in ms.
-   */
-  public int getGossipInterval() {
-    return gossipInterval;
-  }
+    private String pathToRingState = "./";
 
-  /**
-   * Get the clean interval.
-   * 
-   * @return The cleanup interval.
-   */
-  public int getCleanupInterval() {
-    return cleanupInterval;
-  }
+    private boolean persistRingState = true;
 
-  public int getMinimumSamples() {
-    return minimumSamples;
-  }
+    private String pathToDataState = "./";
 
-  public void setMinimumSamples(int minimumSamples) {
-    this.minimumSamples = minimumSamples;
-  }
+    private boolean persistDataState = true;
 
-  public int getWindowSize() {
-    return windowSize;
-  }
+    private String pathToKeyStore = "./keys";
 
-  public void setWindowSize(int windowSize) {
-    this.windowSize = windowSize;
-  }
+    private boolean signMessages = false;
 
-  public double getConvictThreshold() {
-    return convictThreshold;
-  }
+    // Settings related to lock manager
+    private LockManagerSettings lockManagerSettings = LockManagerSettings.getLockManagerDefaultSettings();
 
-  public void setConvictThreshold(double convictThreshold) {
-    this.convictThreshold = convictThreshold;
-  }
+    private boolean bulkTransfer = false;
 
-  public void setGossipInterval(int gossipInterval) {
-    this.gossipInterval = gossipInterval;
-  }
+    private int bulkTransferSize = StartupSettings.DEFAULT_BULK_TRANSFER_SIZE;
 
-  public String getDistribution() {
-    return distribution;
-  }
+    /**
+     * Construct GossipSettings with default settings.
+     */
+    public GossipSettings() {
+    }
 
-  public void setDistribution(String distribution) {
-    this.distribution = distribution;
-  }
+    /**
+     * Construct GossipSettings with given settings.
+     *
+     * @param gossipInterval  The gossip interval in ms.
+     * @param cleanupInterval The cleanup interval in ms.
+     */
+    public GossipSettings(
+            int gossipInterval, int cleanupInterval, int windowSize, int minimumSamples, double convictThreshold,
+            String distribution, boolean bulkTransfer
+    ) {
+        this.gossipInterval = gossipInterval;
+        this.cleanupInterval = cleanupInterval;
+        this.windowSize = windowSize;
+        this.minimumSamples = minimumSamples;
+        this.convictThreshold = convictThreshold;
+        this.distribution = distribution;
+        this.bulkTransfer = bulkTransfer;
+    }
 
-  public String getActiveGossipClass() {
-    return activeGossipClass;
-  }
+    /**
+     * Set the gossip interval. This is the time between a gossip message is send.
+     *
+     * @param gossipInterval The gossip interval in ms.
+     */
+    public void setGossipTimeout(int gossipInterval) {
+        this.gossipInterval = gossipInterval;
+    }
 
-  public void setActiveGossipClass(String activeGossipClass) {
-    this.activeGossipClass = activeGossipClass;
-  }
+    /**
+     * Set the cleanup interval. This is the time between the last heartbeat received from a member
+     * and when it will be marked as dead.
+     *
+     * @param cleanupInterval The cleanup interval in ms.
+     */
+    public void setCleanupInterval(int cleanupInterval) {
+        this.cleanupInterval = cleanupInterval;
+    }
 
-  public Map<String, String> getActiveGossipProperties() {
-    return activeGossipProperties;
-  }
+    /**
+     * Get the gossip interval.
+     *
+     * @return The gossip interval in ms.
+     */
+    public int getGossipInterval() {
+        return gossipInterval;
+    }
 
-  public void setActiveGossipProperties(Map<String, String> activeGossipProperties) {
-    this.activeGossipProperties = activeGossipProperties;
-  }
+    /**
+     * Get the clean interval.
+     *
+     * @return The cleanup interval.
+     */
+    public int getCleanupInterval() {
+        return cleanupInterval;
+    }
 
-  public String getPathToRingState() {
-    return pathToRingState;
-  }
+    public int getMinimumSamples() {
+        return minimumSamples;
+    }
 
-  public void setPathToRingState(String pathToRingState) {
-    this.pathToRingState = pathToRingState;
-  }
+    public void setMinimumSamples(int minimumSamples) {
+        this.minimumSamples = minimumSamples;
+    }
 
-  public boolean isPersistRingState() {
-    return persistRingState;
-  }
+    public int getWindowSize() {
+        return windowSize;
+    }
 
-  public void setPersistRingState(boolean persistRingState) {
-    this.persistRingState = persistRingState;
-  }
+    public void setWindowSize(int windowSize) {
+        this.windowSize = windowSize;
+    }
 
-  public String getPathToDataState() {
-    return pathToDataState;
-  }
+    public double getConvictThreshold() {
+        return convictThreshold;
+    }
 
-  public void setPathToDataState(String pathToDataState) {
-    this.pathToDataState = pathToDataState;
-  }
+    public void setConvictThreshold(double convictThreshold) {
+        this.convictThreshold = convictThreshold;
+    }
 
-  public boolean isPersistDataState() {
-    return persistDataState;
-  }
+    public void setGossipInterval(int gossipInterval) {
+        this.gossipInterval = gossipInterval;
+    }
 
-  public void setPersistDataState(boolean persistDataState) {
-    this.persistDataState = persistDataState;
-  }
+    public String getDistribution() {
+        return distribution;
+    }
 
-  public String getPathToKeyStore() {
-    return pathToKeyStore;
-  }
+    public void setDistribution(String distribution) {
+        this.distribution = distribution;
+    }
 
-  public void setPathToKeyStore(String pathToKeyStore) {
-    this.pathToKeyStore = pathToKeyStore;
-  }
+    public String getActiveGossipClass() {
+        return activeGossipClass;
+    }
 
-  public boolean isSignMessages() {
-    return signMessages;
-  }
+    public void setActiveGossipClass(String activeGossipClass) {
+        this.activeGossipClass = activeGossipClass;
+    }
 
-  public void setSignMessages(boolean signMessages) {
-    this.signMessages = signMessages;
-  }
+    public Map<String, String> getActiveGossipProperties() {
+        return activeGossipProperties;
+    }
 
-  public String getTransportManagerClass() {
-    return transportManagerClass;
-  }
+    public void setActiveGossipProperties(Map<String, String> activeGossipProperties) {
+        this.activeGossipProperties = activeGossipProperties;
+    }
 
-  public void setTransportManagerClass(String transportManagerClass) {
-    this.transportManagerClass = transportManagerClass;
-  }
+    public String getPathToRingState() {
+        return pathToRingState;
+    }
 
-  public String getProtocolManagerClass() {
-    return protocolManagerClass;
-  }
+    public void setPathToRingState(String pathToRingState) {
+        this.pathToRingState = pathToRingState;
+    }
 
-  public void setProtocolManagerClass(String protocolManagerClass) {
-    this.protocolManagerClass = protocolManagerClass;
-  }
+    public boolean isPersistRingState() {
+        return persistRingState;
+    }
 
-  public LockManagerSettings getLockManagerSettings() {
-    return lockManagerSettings;
-  }
+    public void setPersistRingState(boolean persistRingState) {
+        this.persistRingState = persistRingState;
+    }
 
-  /**
-   * Set the lock settings use by the lock manager
-   * @param lockManagerSettings lock settings. This object cannot be null.
-   */
-  public void setLockManagerSettings(LockManagerSettings lockManagerSettings) {
-    this.lockManagerSettings = lockManagerSettings;
-  }
+    public String getPathToDataState() {
+        return pathToDataState;
+    }
 
-  public boolean isBulkTransfer() {
-    return bulkTransfer;
-  }
+    public void setPathToDataState(String pathToDataState) {
+        this.pathToDataState = pathToDataState;
+    }
 
-  public void setBulkTransfer(boolean bulkTransfer) {
-    this.bulkTransfer = bulkTransfer;
-  }
+    public boolean isPersistDataState() {
+        return persistDataState;
+    }
 
-  public int getBulkTransferSize() {
-    return bulkTransferSize;
-  }
+    public void setPersistDataState(boolean persistDataState) {
+        this.persistDataState = persistDataState;
+    }
 
-  public void setBulkTransferSize(int bulkTransferSize) {
-    this.bulkTransferSize = bulkTransferSize;
-  }
+    public String getPathToKeyStore() {
+        return pathToKeyStore;
+    }
+
+    public void setPathToKeyStore(String pathToKeyStore) {
+        this.pathToKeyStore = pathToKeyStore;
+    }
+
+    public boolean isSignMessages() {
+        return signMessages;
+    }
+
+    public void setSignMessages(boolean signMessages) {
+        this.signMessages = signMessages;
+    }
+
+    public String getTransportManagerClass() {
+        return transportManagerClass;
+    }
+
+    public void setTransportManagerClass(String transportManagerClass) {
+        this.transportManagerClass = transportManagerClass;
+    }
+
+    public String getProtocolManagerClass() {
+        return protocolManagerClass;
+    }
+
+    public void setProtocolManagerClass(String protocolManagerClass) {
+        this.protocolManagerClass = protocolManagerClass;
+    }
+
+    public LockManagerSettings getLockManagerSettings() {
+        return lockManagerSettings;
+    }
+
+    /**
+     * Set the lock settings use by the lock manager
+     *
+     * @param lockManagerSettings lock settings. This object cannot be null.
+     */
+    public void setLockManagerSettings(LockManagerSettings lockManagerSettings) {
+        this.lockManagerSettings = lockManagerSettings;
+    }
+
+    public boolean isBulkTransfer() {
+        return bulkTransfer;
+    }
+
+    public void setBulkTransfer(boolean bulkTransfer) {
+        this.bulkTransfer = bulkTransfer;
+    }
+
+    public int getBulkTransferSize() {
+        return bulkTransferSize;
+    }
+
+    public void setBulkTransferSize(int bulkTransferSize) {
+        this.bulkTransferSize = bulkTransferSize;
+    }
 }

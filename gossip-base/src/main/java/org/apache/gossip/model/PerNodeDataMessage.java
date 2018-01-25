@@ -21,59 +21,65 @@ import org.apache.gossip.replication.Replicable;
 
 public class PerNodeDataMessage extends Base {
 
-  private String nodeId;
-  private String key;
-  private Object payload;
-  private Long timestamp;
-  private Long expireAt;
-  private Replicable<PerNodeDataMessage> replicable;
+    private String nodeId;
+    private String key;
+    private Object payload;
+    private Long timestamp;
+    private Long expireAt;
+    private Replicable<PerNodeDataMessage> replicable;
 
-  public String getNodeId() {
-    return nodeId;
-  }
-  public void setNodeId(String nodeId) {
-    this.nodeId = nodeId;
-  }
-  public String getKey() {
-    return key;
-  }
-  public void setKey(String key) {
-    this.key = key;
-  }
-  public Object getPayload() {
-    return payload;
-  }
-  public void setPayload(Object payload) {
-    this.payload = payload;
-  }
-  public Long getTimestamp() {
-    return timestamp;
-  }
-  public void setTimestamp(Long timestamp) {
-    this.timestamp = timestamp;
-  }
-  public Long getExpireAt() {
-    return expireAt;
-  }
-  public void setExpireAt(Long expireAt) {
-    this.expireAt = expireAt;
-  }
+    public String getNodeId() {
+        return nodeId;
+    }
 
-  public Replicable<PerNodeDataMessage> getReplicable() {
-    return replicable;
-  }
+    public void setNodeId(String nodeId) {
+        this.nodeId = nodeId;
+    }
 
-  public void setReplicable(Replicable<PerNodeDataMessage> replicable) {
-    this.replicable = replicable;
-  }
+    public String getKey() {
+        return key;
+    }
 
-  @Override
-  public String toString() {
-    return "GossipDataMessage [nodeId=" + nodeId + ", key=" + key + ", payload=" + payload
-            + ", timestamp=" + timestamp + ", expireAt=" + expireAt
-            + ", replicable=" + replicable + "]";
-  }
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-  
-  
+    public Object getPayload() {
+        return payload;
+    }
+
+    public void setPayload(Object payload) {
+        this.payload = payload;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Long getExpireAt() {
+        return expireAt;
+    }
+
+    public void setExpireAt(Long expireAt) {
+        this.expireAt = expireAt;
+    }
+
+    public Replicable<PerNodeDataMessage> getReplicable() {
+        return replicable;
+    }
+
+    public void setReplicable(Replicable<PerNodeDataMessage> replicable) {
+        this.replicable = replicable;
+    }
+
+    @Override
+    public String toString() {
+        return "GossipDataMessage [nodeId=" + nodeId + ", key=" + key + ", payload=" + payload + ", timestamp=" + timestamp + ", expireAt=" + expireAt + ", replicable=" + replicable + "]";
+    }
+
+
 }

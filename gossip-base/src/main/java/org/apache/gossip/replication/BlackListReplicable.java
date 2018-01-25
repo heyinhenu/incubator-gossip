@@ -30,23 +30,23 @@ import java.util.List;
  * @see Replicable
  */
 public class BlackListReplicable<T extends Base> implements Replicable<T> {
-  
-  private final List<LocalMember> blackListMembers;
-  
-  public BlackListReplicable(List<LocalMember> blackListMembers) {
-    if (blackListMembers == null) {
-      this.blackListMembers = new ArrayList<>();
-    } else {
-      this.blackListMembers = blackListMembers;
+
+    private final List<LocalMember> blackListMembers;
+
+    public BlackListReplicable(List<LocalMember> blackListMembers) {
+        if (blackListMembers == null) {
+            this.blackListMembers = new ArrayList<>();
+        } else {
+            this.blackListMembers = blackListMembers;
+        }
     }
-  }
 
-  public List<LocalMember> getBlackListMembers() {
-    return blackListMembers;
-  }
+    public List<LocalMember> getBlackListMembers() {
+        return blackListMembers;
+    }
 
-  @Override
-  public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
-    return !blackListMembers.contains(destination);
-  }
+    @Override
+    public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
+        return !blackListMembers.contains(destination);
+    }
 }

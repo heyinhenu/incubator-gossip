@@ -21,67 +21,66 @@ import java.util.Map;
 
 public class Member {
 
-  private String cluster;
-  private String uri;
-  private String id;
-  private Long heartbeat;
-  private Map<String,String> properties;
-  
-  public Member(){
-    
-  }
-  
-  public Member(String cluster, String uri, String id, Long heartbeat){
-    this.cluster = cluster;
-    this.uri = uri;
-    this.id = id;
-    this.heartbeat = heartbeat;
-  }
+    private String cluster;
+    private String uri;
+    private String id;
+    private Long heartbeat;
+    private Map<String, String> properties;
 
-  public String getCluster() {
-    return cluster;
-  }
+    public Member() {
 
-  public void setCluster(String cluster) {
-    this.cluster = cluster;
-  }
+    }
 
-  public String getUri() {
-    return uri;
-  }
+    public Member(String cluster, String uri, String id, Long heartbeat) {
+        this.cluster = cluster;
+        this.uri = uri;
+        this.id = id;
+        this.heartbeat = heartbeat;
+    }
 
-  public void setUri(String uri) {
-    this.uri = uri;
-  }
+    public String getCluster() {
+        return cluster;
+    }
 
-  public String getId() {
-    return id;
-  }
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    public String getUri() {
+        return uri;
+    }
 
-  public Long getHeartbeat() {
-    return heartbeat;
-  }
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-  public void setHeartbeat(Long heartbeat) {
-    this.heartbeat = heartbeat;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public Map<String, String> getProperties() {
-    return properties;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public void setProperties(Map<String, String> properties) {
-    this.properties = properties;
-  }
+    public Long getHeartbeat() {
+        return heartbeat;
+    }
 
-  @Override
-  public String toString() {
-    return "Member [cluster=" + cluster + ", uri=" + uri + ", id=" + id + ", heartbeat="
-            + heartbeat + ", properties=" + properties + "]";
-  }
-  
+    public void setHeartbeat(Long heartbeat) {
+        this.heartbeat = heartbeat;
+    }
+
+    public Map<String, String> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, String> properties) {
+        this.properties = properties;
+    }
+
+    @Override
+    public String toString() {
+        return "Member [cluster=" + cluster + ", uri=" + uri + ", id=" + id + ", heartbeat=" + heartbeat + ", properties=" + properties + "]";
+    }
+
 }

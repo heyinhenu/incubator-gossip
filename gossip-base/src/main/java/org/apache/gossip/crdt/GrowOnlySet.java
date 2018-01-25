@@ -24,134 +24,132 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class GrowOnlySet<ElementType> implements CrdtSet<ElementType, Set<ElementType>, GrowOnlySet<ElementType>>{
+public class GrowOnlySet<ElementType> implements CrdtSet<ElementType, Set<ElementType>, GrowOnlySet<ElementType>> {
 
-  private final Set<ElementType> hidden = new LinkedHashSet<>();
-  
-  @SuppressWarnings("unused")
+    private final Set<ElementType> hidden = new LinkedHashSet<>();
+
+    @SuppressWarnings("unused")
   /*
    * Used by SerDe
-   */
-  private GrowOnlySet(){
-    
-  }
-  
-  public GrowOnlySet(Set<ElementType> c){
-    hidden.addAll(c);
-  }
-  
-  public GrowOnlySet(Collection<ElementType> c){
-    hidden.addAll(c);
-  }
-  
-  public GrowOnlySet(GrowOnlySet<ElementType> first, GrowOnlySet<ElementType> second){
-    hidden.addAll(first.value());
-    hidden.addAll(second.value());
-  }
-  
-  @Override
-  public GrowOnlySet<ElementType> merge(GrowOnlySet<ElementType> other) {
-    return new GrowOnlySet<>(this, other);
-  }
+   */ private GrowOnlySet() {
 
-  @Override
-  public Set<ElementType> value() {
-    Set<ElementType> copy = new LinkedHashSet<>();
-    copy.addAll(hidden);
-    return Collections.unmodifiableSet(copy);
-  }
-  
-  @Override
-  public GrowOnlySet<ElementType> optimize() {
-    return new GrowOnlySet<>(hidden);
-  }
+    }
 
-  public int size() {
-    return hidden.size();
-  }
+    public GrowOnlySet(Set<ElementType> c) {
+        hidden.addAll(c);
+    }
 
-  public boolean isEmpty() {
-    return hidden.isEmpty();
-  }
+    public GrowOnlySet(Collection<ElementType> c) {
+        hidden.addAll(c);
+    }
 
-  public boolean contains(Object o) {
-    return hidden.contains(o);
-  }
+    public GrowOnlySet(GrowOnlySet<ElementType> first, GrowOnlySet<ElementType> second) {
+        hidden.addAll(first.value());
+        hidden.addAll(second.value());
+    }
 
-  public Iterator<ElementType> iterator() {
-    Set<ElementType> copy = new HashSet<>();
-    copy.addAll(hidden);
-    return copy.iterator();
-  }
+    @Override
+    public GrowOnlySet<ElementType> merge(GrowOnlySet<ElementType> other) {
+        return new GrowOnlySet<>(this, other);
+    }
 
-  public Object[] toArray() {
-    return hidden.toArray();
-  }
+    @Override
+    public Set<ElementType> value() {
+        Set<ElementType> copy = new LinkedHashSet<>();
+        copy.addAll(hidden);
+        return Collections.unmodifiableSet(copy);
+    }
 
-  public <T> T[] toArray(T[] a) {
-    return hidden.toArray(a);
-  }
+    @Override
+    public GrowOnlySet<ElementType> optimize() {
+        return new GrowOnlySet<>(hidden);
+    }
 
-  public boolean add(ElementType e) {
-    throw new UnsupportedOperationException();
-  }
+    public int size() {
+        return hidden.size();
+    }
 
-  public boolean remove(Object o) {
-    throw new UnsupportedOperationException();
-  }
+    public boolean isEmpty() {
+        return hidden.isEmpty();
+    }
 
-  public boolean containsAll(Collection<?> c) {
-    return hidden.containsAll(c);
-  }
+    public boolean contains(Object o) {
+        return hidden.contains(o);
+    }
 
-  public boolean addAll(Collection<? extends ElementType> c) {
-    throw new UnsupportedOperationException();
-  }
+    public Iterator<ElementType> iterator() {
+        Set<ElementType> copy = new HashSet<>();
+        copy.addAll(hidden);
+        return copy.iterator();
+    }
 
-  public boolean retainAll(Collection<?> c) {
-    throw new UnsupportedOperationException();
-  }
+    public Object[] toArray() {
+        return hidden.toArray();
+    }
 
-  public boolean removeAll(Collection<?> c) {
-    throw new UnsupportedOperationException();
-  }
+    public <T> T[] toArray(T[] a) {
+        return hidden.toArray(a);
+    }
 
-  public void clear() {
-    throw new UnsupportedOperationException();
-  }
+    public boolean add(ElementType e) {
+        throw new UnsupportedOperationException();
+    }
 
-  @Override
-  public String toString() {
-    return "GrowOnlySet [hidden=" + hidden + "]";
-  }
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException();
+    }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((hidden == null) ? 0 : hidden.hashCode());
-    return result;
-  }
+    public boolean containsAll(Collection<?> c) {
+        return hidden.containsAll(c);
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    @SuppressWarnings("rawtypes")
-    GrowOnlySet other = (GrowOnlySet) obj;
-    if (hidden == null) {
-      if (other.hidden != null)
-        return false;
-    } else if (!hidden.equals(other.hidden))
-      return false;
-    return true;
-  }
+    public boolean addAll(Collection<? extends ElementType> c) {
+        throw new UnsupportedOperationException();
+    }
 
-  Set<ElementType> getElements(){
-    return hidden;
-  }
+    public boolean retainAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void clear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String toString() {
+        return "GrowOnlySet [hidden=" + hidden + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((hidden == null) ? 0 : hidden.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        @SuppressWarnings("rawtypes") GrowOnlySet other = (GrowOnlySet) obj;
+        if (hidden == null) {
+            if (other.hidden != null)
+                return false;
+        } else if (!hidden.equals(other.hidden))
+            return false;
+        return true;
+    }
+
+    Set<ElementType> getElements() {
+        return hidden;
+    }
 }

@@ -27,9 +27,9 @@ import org.apache.gossip.model.Base;
  * @see Replicable
  */
 public class NotReplicable<T extends Base> implements Replicable<T> {
-  
-  @Override
-  public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
-    return false;
-  }
+
+    @Override
+    public boolean shouldReplicate(LocalMember me, LocalMember destination, T message) {
+        return false;
+    }
 }

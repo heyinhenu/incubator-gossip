@@ -22,18 +22,18 @@ import java.util.List;
 
 public class ActiveGossipMessage extends Base {
 
-  private List<Member> members = new ArrayList<>();
-  
-  public ActiveGossipMessage(){
-    
-  }
+    private List<Member> members = new ArrayList<>();
 
-  public List<Member> getMembers() {
-    return members;
-  }
+    public ActiveGossipMessage() {
 
-  public void setMembers(List<Member> members) {
-    this.members = members;
-  }
-  
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+
 }
